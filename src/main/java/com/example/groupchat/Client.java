@@ -48,7 +48,7 @@ public class Client {
             System.out.println("Please enter your username for the groupchat:");
             String username = scan.nextLine();
 
-            // Check if the user wants to send a file
+            // Check if the user wants to send a file (WIP)
             System.out.println("Do you want to set a profile picture? If so, please type yes to select a file.");
             //            if(scan.nextLine().toLowerCase().contains("yes")) {
 //                // Send File

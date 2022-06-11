@@ -26,7 +26,7 @@ public class Server {
 //                Socket clientFileSocket = serverSocket.accept();
                 Socket clientChatSocket = serverSocket.accept();
                 System.out.println("Client connected!");
-                // Create a thread for Listening to that Clients files
+                // Create a thread for Listening to that Clients files (WIP)
 //                FileHandler file1 = new FileHandler(clientFileSocket);
 //                Thread client1FileThread = new Thread(file1);
 //                client1FileThread.start();
