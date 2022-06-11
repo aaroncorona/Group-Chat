@@ -1,8 +1,6 @@
 package com.example.groupchat;
 
 import java.io.*;
-import java.text.*;
-import java.util.*;
 import java.net.*;
 
 public class Server {
@@ -25,13 +23,13 @@ public class Server {
             // Each Client gets 2 servers (6 sockets total), one is for transmitting file (byte) data, and the other for transmitting Strings for chats (print writer)
             while (!serverSocket.isClosed()) {
                 // Continually allow new socket connections (new clients)
-                Socket clientFileSocket = serverSocket.accept();
+//                Socket clientFileSocket = serverSocket.accept();
                 Socket clientChatSocket = serverSocket.accept();
                 System.out.println("Client connected!");
                 // Create a thread for Listening to that Clients files
-                FileHandler file1 = new FileHandler(clientFileSocket);
-                Thread client1FileThread = new Thread(file1);
-                client1FileThread.start();
+//                FileHandler file1 = new FileHandler(clientFileSocket);
+//                Thread client1FileThread = new Thread(file1);
+//                client1FileThread.start();
                 // Create a thread for Listening to that Clients messages
                 MessageHandler chat1 = new MessageHandler(clientChatSocket);
                 Thread client1ChatThread = new Thread(chat1);

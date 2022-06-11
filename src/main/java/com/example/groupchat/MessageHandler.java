@@ -19,7 +19,7 @@ public class MessageHandler implements Runnable  {
     public MessageHandler (Socket socketParam) {
         // Pass in Client Socket (Server side Socket)
         this.socket = socketParam;  // this updates the local variable to equal the param
-        System.out.println("Client chat reader started!");
+        System.out.println("Client message reader started!");
         // Add sockets to list of all sockets so they can all receive the groupchat results
         clientChatSocketArrayList.add(socket);
     }
