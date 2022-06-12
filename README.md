@@ -35,6 +35,7 @@ $ java Main
 ## 🚧 Next Release - Version 2.0 Features
 * Add images to the GUI for each user 
 * Improved scrolling
+* Rebuild the Frontend with Angular
 * Open to suggestions!
 
 
