@@ -4,7 +4,7 @@
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/aaroncorona/Group-Chat">
 
 ## 💬 Overview
-This is a private groupchat that devices can share over WiFi.
+A private groupchat that 2+ devices can share over WiFi.
 
 ## 📖 Table of Contents
 * [Tech Stack](#%EF%B8%8F-tech-stack)
@@ -18,8 +18,8 @@ This is a private groupchat that devices can share over WiFi.
 * IntelliJ
 
 ## 🗂️ File Descriptions
-* **SnakePanel.java** - Where the Panel and all game logic lives
-* **SnakeFrame.java** - The Panel is instantiated within the contstructor for a JFrame
+* **Client.java** - Establishes a client socket, which is composed of 2 sockets (1 to send files, 1 to send text). Creates a chat GUI for the client.
+* **Server.java** - Establishes a server socket, which is composed of 2 sockets (1 to accept files, 1 to accept text). Continually creates new server sockets (threads/handelers) to accept more and more new clients.
 * **Main.java** - The JFrame is instantiated
 * **snake_high_scores.csv** - The CSV where high scores are stored. The SnakePanel logic reads from here
 
