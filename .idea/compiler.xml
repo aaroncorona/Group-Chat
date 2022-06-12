@@ -9,7 +9,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GroupChat" target="11" />
+      <module name="Group-Chat" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

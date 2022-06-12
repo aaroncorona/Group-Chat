@@ -4,19 +4,19 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class MessageHandler implements Runnable  {
+public class ChatHandler implements Runnable  {
 
+    // Create an array of the Chat sockets (to send the groupchat messages back to all at once)
+    // Make this static so the list can be shared among all the objects to track them all
+    // Therefore, each thread can update the list with a new socket and the other objects will know about it
+    public static ArrayList<Socket> clientChatSocketArrayList = new ArrayList<Socket>();
     // Make public
     Socket socket; // this is a local socket variable reference, which gets updated by the constructor/param
     // Variable to signal when to shut of the client connection
     Boolean clientLeftChat = false;
-    // Create an array of the Chat sockets (to send the groupchat messages back to all at once)
-    // Make this static so the list can be shared among objects of each class
-    // Therefore, each thread can update the list with a new socket and the other objects will know about it
-    public static ArrayList<Socket> clientChatSocketArrayList = new ArrayList<Socket>();
 
     // Constructor
-    public MessageHandler (Socket socketParam) {
+    public ChatHandler (Socket socketParam) {
         // Pass in Client Socket (Server side Socket)
         this.socket = socketParam;  // this updates the local variable to equal the param
         System.out.println("Client message reader started!");
@@ -59,7 +59,7 @@ public class MessageHandler implements Runnable  {
                         // Send message to socket
                         output.println(message);
                         // Confirmation print
-                        System.out.println("message (" + message + ") relayed back to client! Relayed from thread that listens to "+ username);
+//                        System.out.println("message (" + message + ") relayed back to client! Relayed from thread that listens to "+ username);
                     }
                 }
             }
