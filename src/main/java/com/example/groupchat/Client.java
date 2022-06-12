@@ -12,7 +12,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends JPanel {
 
     // This class runs the Main method, so the class is static by default, it does not create objects
     // There are no other objects created here from another class either, so everything here can be static
@@ -27,6 +27,8 @@ public class Client {
     public static Scanner scan;
     public static String myUsername = "Default";
     public static String myMessage = "Default";  // set dummy initial value to start the loop
+    public static boolean userImageUpload = false;
+    public static ImageIcon myPictureIcon;
     public static String serverMessage = "Default";  // set dummy initial value to start the loop
     public static final String escapeMesssage = "EXIT";
     public static DefaultListModel allMessages = new DefaultListModel();
@@ -34,11 +36,13 @@ public class Client {
 
     public static void main(String[] args) {
         // First, create sockets. Each client needs 1 socket for files and 1 for text
+        String host = "192.168.1.130";
+        int port = 1111;
         try {
             // Create Socket 1 (Client side for bytes)
-            socketForFiles = new Socket("192.168.1.130", 1111); // Address for the Server
+            socketForFiles = new Socket(host, port);
             // Create Socket 2 (Client side for strings)
-            socketForChat = new Socket("192.168.1.130", 1111); // Address for the Server
+            socketForChat = new Socket(host, port);
             // Write messages to Server (no Thread needed because this is not a listener)
             }
         catch(Exception e) {
@@ -54,11 +58,12 @@ public class Client {
         // Send file to Server
         System.out.println("Do you want to set a picture? If so, please type y to select a file.");
         if (scan.nextLine().toLowerCase().contains("y")) {
+            userImageUpload = true;
             sendUserFile();
         }
 
         // GUI to capture user message and print chat result
-        System.out.println("You can now type a message. Type " + escapeMesssage + " to leave the chat");
+        System.out.println("Chat started over port " + port + ". You can now type a message in the window. Type " + escapeMesssage + " to leave the chat");
         generateGUI();
 
         // Create a thread for the Reader to read groupchat results from the Server
@@ -75,27 +80,37 @@ public class Client {
             option = chooser.showOpenDialog(null);
             // Create a File object for chosen file
             if (option == JFileChooser.APPROVE_OPTION) {
-                File fileSelected = new File(String.valueOf(chooser.getSelectedFile()));
-                String fileNameSelected = chooser.getSelectedFile().getName();
+                fileSelected = new File(String.valueOf(chooser.getSelectedFile()));
+                fileNameSelected = chooser.getSelectedFile().getName();
                 System.out.println("You chose this file: " + fileSelected);
-                // Next, Send the file to the server
-                // Create File Input Stream to be able to convert the file to Bytes
-                FileInputStream fin = new FileInputStream(fileSelected);
-                // Create DataOutputStream
-                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socketForFiles.getOutputStream()));
-                // Convert the File Name to a byte array so it can be sent over the Output Stream
-                byte[] fileNameBytesArray = fileNameSelected.getBytes();
-                // Convert the File Content to a byte array so it can be sent
-                byte[] fileBytesArray = new byte[(int) fileSelected.length()];
-                fin.read(fileBytesArray); // Push file bytes into the array
-                // Write file name (in bytes) to the Server
-                out.writeInt(fileNameBytesArray.length); // Always write the length first for the Server to know
-                out.write(fileNameBytesArray);
-                // Write file content (in bytes) to the Server
-                out.writeInt(fileBytesArray.length); // Always write the length first for the Server to know
-                out.write(fileBytesArray);
-                System.out.println("File sent!");
-                out.close();
+                // Send if file is image
+                if(fileNameSelected.contains(".png")
+                   || fileNameSelected.contains(".jpg")
+                   || fileNameSelected.contains(".svg")) {
+                    // Generate image file for client use
+                    ImageIcon myPictureIcon = new ImageIcon(new ImageIcon(fileNameSelected).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                    // Next, Send the file to the server
+                    // Create File Input Stream to be able to convert the file to Bytes
+                    FileInputStream fin = new FileInputStream(fileSelected);
+                    // Create DataOutputStream
+                    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socketForFiles.getOutputStream()));
+                    // Convert the File Name to a byte array so it can be sent over the Output Stream
+                    byte[] fileNameBytesArray = fileNameSelected.getBytes();
+                    // Convert the File Content to a byte array so it can be sent
+                    byte[] fileBytesArray = new byte[(int) fileSelected.length()];
+                    fin.read(fileBytesArray); // Push file bytes into the array
+                    // Write file name (in bytes) to the Server
+                    out.writeInt(fileNameBytesArray.length); // Always write the length first for the Server to know
+                    out.write(fileNameBytesArray);
+                    // Write file content (in bytes) to the Server
+                    out.writeInt(fileBytesArray.length); // Always write the length first for the Server to know
+                    out.write(fileBytesArray);
+                    System.out.println("File sent!");
+                    out.close();
+                } else{
+                    System.out.println("Invalid file. Must be image");
+                    userImageUpload = false;
+                }
             }
         }
         catch (Exception e){
@@ -126,20 +141,32 @@ public class Client {
         textField.setMaximumSize(new Dimension(300, 30));
         textField.setFocusable(true);
         panel.add(textField, BorderLayout.CENTER);
+//        // Add image
+//        if(userImageUpload == true){
+//            try {
+//                BufferedImage myPicture = ImageIO.read(fileSelected);
+//                JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//                panel.add(picLabel);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         // JTextField Listener to get the next user message to send
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField textField = (JTextField) e.getSource();
-                String text = textField.getText();
-                myMessage = text;
-                myMessage = myUsername + ": " + myMessage;
-                // Create Writer to Server (this works better for text than the byte output stream)
-                try {
-                    PrintWriter writer = new PrintWriter(socketForChat.getOutputStream(), true);
-                    writer.println(myMessage);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                String textInput = textField.getText();
+                if(textInput.length()>0){
+                    myMessage = textInput;
+                    myMessage = myUsername + ": " + myMessage;
+                    // Create Writer to Server (this works better for text than the byte output stream)
+                    try {
+                        PrintWriter writer = new PrintWriter(socketForChat.getOutputStream(), true);
+                        writer.println(myMessage);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 textField.setText("");
                 allMessages.addElement(myMessage); // Add self message to chat thread
@@ -170,8 +197,6 @@ public class Client {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(socketForChat.getInputStream()));
                         serverMessage = reader.readLine(); // Read next line if it exists
                         allMessages.addElement(serverMessage); // Add the incoming message to the Array list
-                        // Add list of users
-//                        allUsers.addElement(myUsername);
                     }
                 } catch (IOException e) {
                     System.out.println(e);
@@ -180,4 +205,5 @@ public class Client {
         };
         readingThread.start();
     }
+
 }
