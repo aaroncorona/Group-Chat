@@ -141,23 +141,22 @@ public class Client extends JPanel {
         textField.setMaximumSize(new Dimension(300, 30));
         textField.setFocusable(true);
         panel.add(textField, BorderLayout.CENTER);
-//        // Add image
-//        if(userImageUpload == true){
-//            try {
-//                BufferedImage myPicture = ImageIO.read(fileSelected);
-//                JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//                panel.add(picLabel);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+//        // Add image to List if one exists
+        if(userImageUpload == true){
+            try {
+                BufferedImage myPicture = ImageIO.read(fileSelected);
+                allMessages.addElement(myPicture);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         // JTextField Listener to get the next user message to send
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField textField = (JTextField) e.getSource();
                 String textInput = textField.getText();
-                if(textInput.length()>0){
+                if(textInput.length()>0) {
                     myMessage = textInput;
                     myMessage = myUsername + ": " + myMessage;
                     // Create Writer to Server (this works better for text than the byte output stream)
@@ -167,18 +166,18 @@ public class Client extends JPanel {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                }
-                textField.setText("");
-                allMessages.addElement(myMessage); // Add self message to chat thread
-                if(myMessage.contains(escapeMesssage) || serverMessage == null) { // prevent endless loop of nulls
-                    myMessage = ("* " + myUsername + " left the chat *");
-                    allMessages.addElement(myMessage);
-                    try {
-                        socketForChat.close();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    textField.setText("");
+                    allMessages.addElement(myMessage); // Add self message to chat thread
+                    if (myMessage.contains(escapeMesssage) || serverMessage == null) { // prevent endless loop of nulls
+                        myMessage = ("* " + myUsername + " left the chat *");
+                        allMessages.addElement(myMessage);
+                        try {
+                            socketForChat.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        System.exit(0);
                     }
-                    System.exit(0);
                 }
             }
         });
