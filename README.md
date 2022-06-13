@@ -43,8 +43,8 @@ $ java Server
 Server created. Waiting for at least 1 client to connect...
 ```
 4. Next, each device using the group chat should download Client.java. 
-5. Mimic step #2 on Client.java to make sure the host and port on the client (lines 32-33) match the server file (lines 11-12).
-6. Each client should answer the 2 questions in the terminal. Then, the program will initialilze the chat GUI. 
+5. Mimic step #2 on Client.java to make sure the host and port on the client (lines 32-33) match the server file (lines 11-12). 
+6. Compile and run Client.java. Each user should answer the 2 questions in the terminal. Then, the program will initialilze the chat GUI: 
 
 
 <img width="800" alt="3) all" src="https://user-images.githubusercontent.com/31792170/173262250-d7edef4d-53f8-49a6-8999-1609aeeae4f0.png">
