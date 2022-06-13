@@ -2,7 +2,6 @@ package com.example.groupchat;
 
 import java.io.*;
 import java.net.*;
-import java.awt.*;
 
 public class FileHandler implements Runnable {
 
