@@ -6,10 +6,6 @@ import java.net.*;
 public class FileHandler implements Runnable {
 
     Socket socket;
-    Socket[] clientSocketArray;
-    BufferedReader input;
-    PrintWriter output;
-    String message;
 
     // Constructor
     public FileHandler (Socket socketParam) {
