@@ -8,8 +8,10 @@ public class Server {
     public static void main(String[] args) {
         try {
             // Create Server Socket (end point for other sockets to connect to)
-            InetAddress inetAddress = InetAddress.getByName("192.168.1.130"); // Private IP address
-            ServerSocket serverSocket = new ServerSocket(1111, 5, inetAddress);
+            String host = "192.168.1.130"; // This should be your private IP address
+            int port = 1111; // Pick any port on your device
+            InetAddress inetAddress = InetAddress.getByName(host);
+            ServerSocket serverSocket = new ServerSocket(port, 5, inetAddress);
             System.out.println("Server created. Waiting for at least 1 client to connect...");
 
             // Create Client Server objects
