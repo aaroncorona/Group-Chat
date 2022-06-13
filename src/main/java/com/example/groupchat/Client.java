@@ -1,15 +1,11 @@
 package com.example.groupchat;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Client extends JPanel {
@@ -141,15 +137,14 @@ public class Client extends JPanel {
         textField.setMaximumSize(new Dimension(300, 30));
         textField.setFocusable(true);
         panel.add(textField, BorderLayout.CENTER);
-//        // Add image to List if one exists
-        if(userImageUpload == true){
-            try {
-                BufferedImage myPicture = ImageIO.read(fileSelected);
-                allMessages.addElement(myPicture);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        // Add image to List if one exists (WIP)
+//        if(userImageUpload == true){
+//            try {
+//                BufferedImage myPicture = ImageIO.read(fileSelected);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         // JTextField Listener to get the next user message to send
         textField.addActionListener(new ActionListener() {
             @Override

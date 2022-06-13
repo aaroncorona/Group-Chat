@@ -6,8 +6,7 @@ import java.awt.*;
 
 public class FileHandler implements Runnable {
 
-    // Make public
-    Socket socket; // local socket reference for the constructor
+    Socket socket;
     Socket[] clientSocketArray;
     BufferedReader input;
     PrintWriter output;
@@ -44,14 +43,6 @@ public class FileHandler implements Runnable {
             String pathToNewFile = "/Users/aaroncorona/Desktop/" + fileName; // Send to the desktop by default
             FileOutputStream fos = new FileOutputStream(pathToNewFile); // use file name from client
             fos.write(fileByteArray); // Convert bytes to file name specified above
-            // Print confirm the file was received
-            File fileReceived = new File(pathToNewFile);
-            if(fileReceived.exists() == true) {
-                System.out.println("File received from client!");
-//                Desktop desktop = Desktop.getDesktop();
-//                desktop.open(fileReceived);
-//                System.out.println("File opened!");
-            }
             fileIn.close();
         } catch (IOException e) {
             System.out.println(e);

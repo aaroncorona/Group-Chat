@@ -8,12 +8,9 @@ public class ChatHandler implements Runnable  {
 
     // Create an array of the Chat sockets (to send the groupchat messages back to all at once)
     // Make this static so the list can be shared among all the objects to track them all
-    // Therefore, each thread can update the list with a new socket and the other objects will know about it
     public static ArrayList<Socket> clientChatSocketArrayList = new ArrayList<Socket>();
-    // Make public
-    Socket socket; // this is a local socket variable reference, which gets updated by the constructor/param
-    // Variable to signal when to shut of the client connection
-    Boolean clientLeftChat = false;
+    Socket socket;
+    Boolean clientLeftChat = false; // Signal when to shut of the client connection
 
     // Constructor
     public ChatHandler (Socket socketParam) {
@@ -30,7 +27,6 @@ public class ChatHandler implements Runnable  {
     public void run () {
         try {
             // Listen for messages here in a separate thread because listening is a blocking operation
-            // Read the Client's messages
             String message = new String();
             while (clientLeftChat == false) { // Keep scanning until exit message is sent
                 // Add message to string variable and print it
@@ -49,11 +45,8 @@ public class ChatHandler implements Runnable  {
                 }
                 // Broadcast message to all clients
                 for(int i=0; i < clientChatSocketArrayList.size(); i++) {
-                    // test
                     Socket givenSocket = clientChatSocketArrayList.get(i);
-                    // Do not relay the message back to the same client
-                    // In other words, do not write to the socket this thread reads from)
-                    if(!socket.equals(givenSocket)) {
+                    if(!socket.equals(givenSocket)) { // Do not relay the message back to the same client
                         // Every loop creates a writer to the given socket
                         PrintWriter output = new PrintWriter(clientChatSocketArrayList.get(i).getOutputStream(), true);
                         // Send message to socket
