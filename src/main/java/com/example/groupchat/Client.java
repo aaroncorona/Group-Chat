@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Client extends JPanel {
 
     // This class runs the Main method, so the class is static by default, it does not create objects
-    // There are no other objects created here from another class either, so everything here can be static
     public static BufferedReader inputServer;
     public static Boolean clientLeftChat = false;
     public static int option;
@@ -19,7 +18,6 @@ public class Client extends JPanel {
     public static String fileNameSelected;
     public static Socket socketForFiles;
     public static Socket socketForChat;
-    public static Thread readingThread;
     public static Scanner scan;
     public static String myUsername = "Default";
     public static String myMessage = "Default";  // set dummy initial value to start the loop
@@ -28,7 +26,6 @@ public class Client extends JPanel {
     public static String serverMessage = "Default";  // set dummy initial value to start the loop
     public static final String escapeMesssage = "EXIT";
     public static DefaultListModel allMessages = new DefaultListModel();
-//    public static DefaultListModel allUsers = new DefaultListModel();
 
     public static void main(String[] args) {
         // First, create sockets. Each client needs 1 socket for files and 1 for text

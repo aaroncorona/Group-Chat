@@ -5,8 +5,6 @@ import java.net.*;
 
 public class Server {
 
-    public static int fileNameLength;
-
     public static void main(String[] args) {
         try {
             // Create Server Socket (end point for other sockets to connect to)
