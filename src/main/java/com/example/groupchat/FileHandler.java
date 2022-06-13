@@ -23,7 +23,6 @@ public class FileHandler implements Runnable {
             DataInputStream fileIn = new DataInputStream(socket.getInputStream());
             // Read file name size (this is the first thing the Client sends)
             int fileNameLength = fileIn.readInt();
-//            System.out.println("fileNameLength received = " + fileNameLength);
             // Read file name
             byte[] fileNameByteArray = new byte[fileNameLength]; // Create Name Byte shell
             fileIn.readFully(fileNameByteArray, 0, fileNameLength); // Fill byte array
@@ -32,7 +31,6 @@ public class FileHandler implements Runnable {
             int fileLength = fileIn.readInt(); // First get the length (this is the first thing the Client sends)
             byte[] fileByteArray = new byte[fileLength]; // Create Name Byte shell
             fileIn.readFully(fileByteArray, 0, fileLength); // Fill byte array
-            // Confirm byte array was filled correctly
             // Convert byte to file
             String pathToNewFileDir = "/Users/aaroncorona/Desktop/"; // Send to the desktop by default
             String pathToNewFile = "/Users/aaroncorona/Desktop/" + fileName; // Send to the desktop by default
