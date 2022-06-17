@@ -1,7 +1,6 @@
 # Group Chat
 <img width = "320" src = "https://techcrunch.com/wp-content/uploads/2018/10/Facebook-Groups-Chat.png">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/aaroncorona/Group-Chat">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/aaroncorona/Group-Chat">
 
 ## 💬 Overview
 A private groupchat that 2+ devices can share over WiFi.
