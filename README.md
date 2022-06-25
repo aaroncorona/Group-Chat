@@ -11,7 +11,6 @@ A private groupchat that 2+ devices can share over WiFi.
 * [Instructions](#-instructions)
 * [Next Release](#-next-release---version-20-features)
 
-
 ## ⚙️ Tech Stack
 * Java 
 * IntelliJ
