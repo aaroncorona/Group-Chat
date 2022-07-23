@@ -56,6 +56,3 @@ Server created. Waiting for at least 1 client to connect...
 * Add images to the GUI for each user (e.g. like Facebook messenger)
 * Improve scrolling
 
-
-
-
