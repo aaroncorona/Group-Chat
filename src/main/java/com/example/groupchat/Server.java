@@ -8,7 +8,7 @@ public class Server {
     public static void main(String[] args) {
         try {
             // Create Server Socket (end point for other sockets to connect to)
-            String host = "192.168.1.130"; // This should be your private IP address
+            String host = "192.0.0.0"; // This should be your private IP address
             int port = 1111; // Pick any port on your device
             InetAddress inetAddress = InetAddress.getByName(host);
             ServerSocket serverSocket = new ServerSocket(port, 5, inetAddress);
