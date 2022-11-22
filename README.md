@@ -49,10 +49,3 @@ Server created. Waiting for at least 1 client to connect...
 <img width="800" alt="3) all" src="https://user-images.githubusercontent.com/31792170/173262302-9f1300e4-a7a9-446b-ba7b-d5c4d4a18b46.png">
 <img width="500" alt="4) bye" src="https://user-images.githubusercontent.com/31792170/173262317-284fff18-279c-4f84-9604-cf1f49174212.png">
 
-
-## 🚧 Next Release - Version 2.0 Features
-* Rebuild the GUI with Angular
-* Rebuild the backend with Spring
-* Add images to the GUI for each user (e.g. like Facebook messenger)
-* Improve scrolling
-
